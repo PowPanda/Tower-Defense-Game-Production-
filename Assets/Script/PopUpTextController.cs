@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PopUpTextController : MonoBehaviour {
 
     private static PopUpText popUpText;
-    private static GameObject canvas;
+    public static GameObject canvas;
 
     public static void Initialize()
     {

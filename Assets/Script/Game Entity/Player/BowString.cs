@@ -20,26 +20,23 @@ public class BowString : MonoBehaviour {
     public GameObject fire_arrowPrefab;
     public Transform arrowSpawnPos;
     GameObject arrow;
-    GameObject bow;
     int previosArrow;
     bool arrowSlotted;
     
     //public GameObject iceArrow;
     public PlayerController player;
-    public Text invalidShoot;
 
     Quaternion arrowRotation;
 
     float shootInterval;
     float timer;
-    bool canShoot;
 
     // Use this for initialization
     void Start () {
         firstPosition = transform.localPosition;
         lastPosition = transform.localPosition + Vector3.up * 0.45f;
         arrowSlotted = false;
-        FirstArrow();
+        SlotFirstArrow();
         shootInterval = 1.0f;
         timer = 0.0f;
     }
@@ -156,7 +153,7 @@ public class BowString : MonoBehaviour {
         //    SpawnArrow();
     }
 
-    void FirstArrow()
+    void SlotFirstArrow()
     {
         arrowRotation = transform.rotation * Quaternion.Euler(new Vector3(-90, 0, 0));
         arrow = Instantiate(normal_arrowPrefab, arrowSpawnPos.position, arrowRotation) as GameObject;

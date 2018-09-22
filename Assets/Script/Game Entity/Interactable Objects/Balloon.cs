@@ -14,13 +14,13 @@ public class Balloon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Invoke("FloatUp", 0.5f);
+        FloatUp();
 	}
 
     void FloatUp()
     {
-        rb.AddForce(new Vector3(0,0.5f,0));
-        Invoke("Destroy", 5.0f);
+        rb.AddForce(new Vector3(0, 1.0f, 0));
+        Invoke("Destroy", 8.0f);
     }
 
     void Destroy()

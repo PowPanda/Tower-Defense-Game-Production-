@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-    Rigidbody rigidB;
+    Rigidbody rb;
     public float shootForce;
     public PlayerController player;
     public GameObject explosionParticle;
@@ -12,9 +12,9 @@ public class Projectile : MonoBehaviour {
     void OnEnable () {
         GetComponent<BoxCollider>().enabled = true;
         GetComponent<TrailRenderer>().enabled = true;
-        player = GameObject.Find("Player/Main Camera/Bow").GetComponent<PlayerController>();
-        rigidB = GetComponent<Rigidbody>();
-        rigidB.velocity = Vector3.zero;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
         ApplyForce();
 	}
 	
@@ -25,14 +25,14 @@ public class Projectile : MonoBehaviour {
 
     void ApplyForce()
     {
-        rigidB.AddForce(Camera.main.transform.forward * shootForce);
+        rb.AddForce(Camera.main.transform.forward * shootForce);
     }
 
     void SpinObjectInAir()
     {
-        float yVelocity = rigidB.velocity.y;
-        float zVelocity = rigidB.velocity.z;
-        float xVelocity = rigidB.velocity.x;
+        float yVelocity = rb.velocity.y;
+        float zVelocity = rb.velocity.z;
+        float xVelocity = rb.velocity.x;
         float combinedVelocity = Mathf.Sqrt(xVelocity * xVelocity + zVelocity * zVelocity);
 
         float fallAngle = Mathf.Atan2(yVelocity, combinedVelocity) * 180 / Mathf.PI;    // To convert radian to degree
@@ -42,23 +42,25 @@ public class Projectile : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        // Act force to push enemy
-        if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "FlyingEnemy")
+        Debug.Log(col.gameObject.name);
+        // Add force to push enemy
+        if (col.gameObject.tag == "Enemy")
         {
             if (gameObject.tag == "Arrow")
             {
+                col.gameObject.GetComponent<EnemyController>().getHit = true;
                 float power = 1000.0f;
                 Vector3 exploPosition = col.contacts[0].point;
                 //col.gameObject.GetComponent<Rigidbody>().AddForce(dir * force, ForceMode.Acceleration);
-
                 col.gameObject.GetComponent<Rigidbody>().AddExplosionForce(power, exploPosition, 0f, 100.0f);
                 Destroy(gameObject);
             }
 
             else if (gameObject.tag == "FireArrow")
             {
-                AreaDamage(col.contacts[0].point, 5.0f);
-                Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+                //Debug.Log("Enemy Hit");
+                AreaDamage(col.contacts[0].point, 500.0f);
+                Destroy(Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation), 2.0f);
                 Destroy(gameObject);
             }
         }
@@ -72,10 +74,11 @@ public class Projectile : MonoBehaviour {
 
         else if (col.gameObject.tag == "Terrain")
         {
+            //Debug.Log("Terrain Hit");
             if (gameObject.tag == "FireArrow")
             {
-                AreaDamage(col.contacts[0].point, 5.0f);
-                Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+                AreaDamage(col.contacts[0].point, 500.0f);
+                Destroy(Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation), 2.0f);
                 Destroy(gameObject);
             }
 
@@ -86,7 +89,7 @@ public class Projectile : MonoBehaviour {
     void AreaDamage(Vector3 location, float radius)
     {
         Vector3 exploPosition = location;
-        float power = 1000.0f;
+        float power = 500.0f;
 
         Collider[] objectsInRange = Physics.OverlapSphere(location, radius);
 
@@ -94,14 +97,8 @@ public class Projectile : MonoBehaviour {
         {
             if (col.gameObject.tag == "Enemy")
             {
-                col.gameObject.GetComponent<EnemyController>().getHit = true;
-                col.gameObject.GetComponent<Rigidbody>().AddExplosionForce(power, exploPosition, radius, 100.0f);
-            }
-
-            if (col.gameObject.tag == "FlyingEnemy")
-            {
-                col.gameObject.GetComponent<FlyingEnemyController>().getHit = true;
-                col.gameObject.GetComponent<Rigidbody>().AddExplosionForce(power, exploPosition, radius, 100.0f);
+                col.gameObject.GetComponentInParent<EnemyController>().getHit = true;
+                col.gameObject.GetComponentInParent<Rigidbody>().AddExplosionForce(power, exploPosition, 5.0f, 30.0f);
             }
         }
     }

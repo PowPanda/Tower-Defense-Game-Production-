@@ -12,6 +12,8 @@ TagManager:
   - FireArrow
   - FlyingEnemy
   - Gate
+  - Waypoints
+  - EnemySpawnManager
   layers:
   - Default
   - TransparentFX

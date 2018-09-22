@@ -8,7 +8,6 @@ public class Tutorial : MonoBehaviour
     private float typeSpeed = 0.125f;
     private float startDelay = 0.0f;
     private float volumeVariation;
-    private bool startOnAwake = true;
 
     private int counter;
     private string textToType;

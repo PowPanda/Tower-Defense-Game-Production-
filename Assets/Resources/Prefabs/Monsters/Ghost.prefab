@@ -53,8 +53,7 @@ GameObject:
   - component: {fileID: 4970881597266344}
   - component: {fileID: 95878339317186562}
   - component: {fileID: 54294481164014444}
-  - component: {fileID: 135113874643460528}
-  - component: {fileID: 114299586689134132}
+  - component: {fileID: 114199465683434200}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Enemy
@@ -71,6 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4395724035466134}
   - component: {fileID: 137586744363738322}
+  - component: {fileID: 135082387898373858}
   m_Layer: 0
   m_Name: LV1
   m_TagString: Untagged
@@ -385,7 +385,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183845383674208}
   m_LocalRotation: {x: -0, y: 0.98511887, z: -0, w: 0.17187473}
-  m_LocalPosition: {x: -4.219409, y: -6.13, z: 4.3222}
+  m_LocalPosition: {x: -1.3911872, y: -6.3062344, z: 19.942194}
   m_LocalScale: {x: 94.20091, y: 94.201035, z: 94.201035}
   m_Children:
   - {fileID: 4547046481385474}
@@ -442,7 +442,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183845383674208}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -467,7 +467,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114299586689134132
+--- !u!114 &114199465683434200
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -475,18 +475,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183845383674208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 540df54ef8a2fc340ad2fcd0e5d7c535, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ed9ff495e9f3074980840b97edd8984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   getHit: 0
-  enemySpawnManager: {fileID: 0}
---- !u!135 &135113874643460528
+--- !u!135 &135082387898373858
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1183845383674208}
+  m_GameObject: {fileID: 1352825368987020}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
